@@ -1,6 +1,7 @@
 import React, { Suspense } from "react"
 import { BrowserRouter, useRoutes } from "react-router-dom"
 import routes from "./router/index"
+import RequireAuth from "./router/RequireAuth"
 
 // 用于包裹 useRoutes 的组件
 const AppRoutes = () => {

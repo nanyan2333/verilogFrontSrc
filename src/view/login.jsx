@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { loginApi, getRouteApi } from "../api/auth"
-import { setRole } from "../store/modules/userSlice"
+import { setIsLogin, setRole } from "../store/modules/userSlice"
 import { Button, TextField } from "@mui/material"
 
 const Login = () => {
@@ -10,15 +10,18 @@ const Login = () => {
 	const dispatch = useDispatch()
 	const [id, setId] = useState("")
 	const [password, setPassword] = useState("")
-	const handleLogin = async () => {
-		const res = await loginApi("admin", "123456")
-		if (res.token) {
-			console.log(111)
-			dispatch(setRole(2))
-			navigate("/home")
-		}
-	}
 
+	const handleLogin = () => {
+		// const res = await loginApi("admin", "123456")
+		// if (res.token) {
+		// 	console.log(111)
+		// 	dispatch(setRole(2))
+		// 	navigate("/home")
+		// }
+		dispatch(setRole(2))
+		dispatch(setIsLogin(true))
+		navigate("/home")
+	}
 	return (
 		<div className='min-h-screen bg-gray-100 flex items-center justify-center'>
 			<div className='bg-white p-8 rounded-lg shadow-md w-full max-w-md'>

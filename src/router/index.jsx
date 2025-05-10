@@ -4,6 +4,7 @@ import NoPermission from "../view/noPermission"
 import Login from "../view/login"
 import NotFound from "../view/NotFound"
 import RequireAuth from "./RequireAuth"
+import Course from "../view/course"
 
 import Home from "../view/home"
 import About from "../view/about"
@@ -23,11 +24,27 @@ const routes = [
 		children: [
 			{
 				path: "home",
-				element: <Home />,
+				element: (
+					<RequireAuth role='2'>
+						<Home />
+					</RequireAuth>
+				),
+			},
+			{
+				path: "course/:id",
+				element: (
+					<RequireAuth role='2'>
+						<Course />
+					</RequireAuth>
+				),
 			},
 			{
 				path: "about",
-				element: <About />,
+				element: (
+					<RequireAuth role='1'>
+						<About />
+					</RequireAuth>
+				),
 			},
 		],
 	},

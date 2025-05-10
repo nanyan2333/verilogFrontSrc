@@ -1,0 +1,264 @@
+/* NotFoundPage.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap');
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f0f2f5; /* 给页面一个背景色 */
+}
+
+.not-found-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* 确保容器至少占满整个视口高度 */
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box; /* 包含 padding 在宽度和高度内 */
+  overflow: hidden; /* 防止动画元素溢出 */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.not-found-content {
+  max-width: 600px;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px); /* 玻璃拟态效果 */
+}
+
+.error-code-container {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10rem; /* 调整404数字大小 */
+  font-weight: 700;
+  margin-bottom: 20px;
+  position: relative; /* 为了小幽灵的定位 */
+  display: flex; /* 让数字并排 */
+  justify-content: center; /* 数字居中 */
+  align-items: center; /* 垂直居中 */
+}
+
+.digit {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(50px);
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.first-digit {
+  animation: fadeInUp 0.6s 0.2s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  color: #ffcc00;
+}
+
+.zero-digit {
+  animation: fadeInUp 0.6s 0.4s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  color: #ff99cc;
+  position: relative; /* 用于小幽灵的眼睛定位 */
+}
+
+.last-digit {
+  animation: fadeInUp 0.6s 0.6s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  color: #ccff99;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ghost {
+  width: 80px; /* 幽灵宽度 */
+  height: 120px; /* 幽灵高度 */
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 40px 40px 0 0; /* 幽灵身体形状 */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -70%); /* 初始位置调整，使其在0的中间偏上 */
+  animation: floatGhost 3s ease-in-out infinite, appearGhost 1s 1s forwards;
+  opacity: 0; /* 初始不可见 */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.ghost::before,
+.ghost::after { /* 幽灵底部波浪 */
+  content: '';
+  position: absolute;
+  bottom: -10px; /* 调整波浪位置 */
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+}
+
+.ghost::before {
+  left: 15px; /* 第一个波浪 */
+}
+
+.ghost::after {
+  right: 15px; /* 第二个波浪 */
+}
+
+.ghost-eyes {
+  position: absolute;
+  top: 35px; /* 眼睛位置 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px; /* 两只眼睛容器的宽度 */
+  display: flex;
+  justify-content: space-between;
+}
+
+.ghost-eyes::before,
+.ghost-eyes::after { /* 眼睛 */
+  content: '';
+  width: 12px;
+  height: 12px;
+  background-color: #333;
+  border-radius: 50%;
+  animation: blinkEyes 4s infiniteステップ指定(2, jump-none); /* 眨眼动画 */
+}
+
+.ghost-mouth {
+  position: absolute;
+  top: 60px; /* 嘴巴位置 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 8px;
+  background-color: #333;
+  border-radius: 0 0 8px 8px; /* O 形嘴巴 */
+  animation: ohMouth 3s ease-in-out infinite;
+}
+
+@keyframes appearGhost {
+  to {
+    opacity: 1;
+    transform: translate(-50%, -80%); /* 出现后最终位置 */
+  }
+}
+
+@keyframes floatGhost {
+  0%, 100% {
+    transform: translate(-50%, -80%);
+  }
+  50% {
+    transform: translate(-50%, -90%); /* 上下浮动 */
+  }
+}
+
+@keyframes blinkEyes {
+  0%, 80%, 100% { transform: scaleY(1); }
+  90% { transform: scaleY(0.1); } /* 眨眼时压缩 */
+}
+
+@keyframes ohMouth { /* 嘴巴惊讶动画 */
+  0%, 100% { height: 8px; border-radius: 0 0 8px 8px; }
+  50% { height: 12px; border-radius: 50%;}
+}
+
+
+.error-message {
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: bold;
+  animation: slideInText 0.8s 0.8s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.error-description {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  animation: slideInText 0.8s 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+@keyframes slideInText {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.home-button {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #ffcc00;
+  color: #333;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  animation: popInButton 0.5s 1.2s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  opacity: 0;
+  transform: scale(0.5);
+  box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4);
+}
+
+.home-button:hover {
+  background-color: #ffc107;
+  transform: scale(1.05) translateY(-2px); /* 悬浮时放大并轻微上移 */
+  box-shadow: 0 8px 25px rgba(255, 204, 0, 0.6);
+}
+
+@keyframes popInButton {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .error-code-container {
+    font-size: 6rem;
+  }
+  .ghost {
+    width: 60px;
+    height: 90px;
+    transform: translate(-50%, -65%);
+  }
+  .ghost-eyes {
+    top: 25px;
+  }
+  .ghost-eyes::before,
+  .ghost-eyes::after {
+    width: 8px;
+    height: 8px;
+  }
+  .ghost-mouth {
+    top: 40px;
+    width: 10px;
+    height: 5px;
+  }
+  .error-message {
+    font-size: 1.5rem;
+  }
+  .error-description {
+    font-size: 0.9rem;
+  }
+  .home-button {
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .not-found-content {
+    padding: 20px;
+  }
+  .error-code-container {
+    font-size: 5rem;
+  }
+  .ghost {
+    transform: translate(-50%, -60%);
+  }
+}

@@ -30,7 +30,7 @@ const TopNav = () => {
 	return (
 		<div className='w-full h-1/12 min-h-1/12'>
 			<AppBar
-				position='fixed'
+				position='static'
 				sx={{
 					background: "linear-gradient(45deg, #2196F3, #21CBF3)",
 				}}>

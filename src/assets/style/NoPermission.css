@@ -1,0 +1,283 @@
+/* NoPermissionPage.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans&display=swap');
+
+/* 使用 -np 后缀 (NoPermission) 来为该页面的特定类名添加命名空间，
+   避免与 NotFoundPage.css 中的类名潜在冲突 */
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  /* background-color: #f0f2f5; /* 可以由App的全局样式设定 */
+}
+
+.no-permission-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* 403页面使用不同的警告色系渐变背景 */
+  background: linear-gradient(135deg, #ff8a65 0%, #ff5722 100%); /* 橙红色系 */
+  color: #fff;
+}
+
+.no-permission-content {
+  max-width: 600px;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+}
+
+.error-code-container-np {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10rem; /* 调整403数字大小 */
+  font-weight: 700;
+  margin-bottom: 30px; /* 为锁图标留出空间 */
+  position: relative; /* 为了锁图标的定位 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.digit-np {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(50px);
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.first-digit-np {
+  animation: fadeInUpNP 0.6s 0.2s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  color: #ffe0b2; /* 淡橙色 */
+}
+
+.zero-digit-np {
+  animation: fadeInUpNP 0.6s 0.4s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  color: #ffccbc; /* 偏红的淡橙色 */
+  position: relative; /* 用于锁图标定位 */
+  /* display: flex; 不需要 flex 因为锁图标绝对定位 */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+.last-digit-np {
+  animation: fadeInUpNP 0.6s 0.6s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  color: #ffab91; /* 稍深的淡橙色 */
+}
+
+@keyframes fadeInUpNP {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 锁图标样式与动画 */
+.lock-icon-np {
+  width: 50px; /* 锁图标宽度 */
+  height: 65px; /* 锁图标高度 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8); /* 初始缩小并居中 */
+  opacity: 0;
+  animation: appearAndShakeLockNP 1.5s 0.8s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.lock-shackle-np {
+  width: 28px; /* 锁钩宽度 */
+  height: 28px; /* 锁钩高度 */
+  border: 7px solid #a0a0a0; /* 灰色锁钩 */
+  border-bottom: none;
+  border-radius: 14px 14px 0 0; /* U形 */
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: transparent; /* 确保背景透明 */
+  box-sizing: border-box;
+}
+
+.lock-body-np {
+  width: 100%; /* 50px */
+  height: 40px; /* 锁体高度 */
+  background-color: #c0c0c0; /* 银灰色锁体 */
+  border-radius: 5px;
+  position: absolute;
+  bottom: 0;
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2), 0 2px 3px rgba(0,0,0,0.1);
+}
+
+@keyframes appearAndShakeLockNP {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  60% { /* 先放大出现 */
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  /* 然后轻微晃动 */
+  70% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  75% { transform: translate(-50%, -50%) scale(1) rotate(-5deg); }
+  80% { transform: translate(-50%, -50%) scale(1) rotate(5deg); }
+  85% { transform: translate(-50%, -50%) scale(1) rotate(-3deg); }
+  90% { transform: translate(-50%, -50%) scale(1) rotate(3deg); }
+  95%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+}
+
+
+.error-message-np {
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: bold;
+  animation: slideInTextNP 0.8s 1.0s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.error-description-np {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  animation: slideInTextNP 0.8s 1.2s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+@keyframes slideInTextNP {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.buttons-container-np {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* 按钮间距 */
+  flex-wrap: wrap; /* 小屏幕上换行 */
+}
+
+.action-button-np {
+  display: inline-block;
+  padding: 12px 25px;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  animation: popInButtonNP 0.5s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  opacity: 0;
+  transform: scale(0.5);
+  border: none;
+  cursor: pointer;
+}
+
+.go-back-button-np {
+  background-color: #78909c; /* 蓝灰色 */
+  color: white;
+  animation-delay: 1.4s; /* 按钮动画延迟 */
+  box-shadow: 0 4px 15px rgba(120, 144, 156, 0.3);
+}
+
+.go-back-button-np:hover {
+  background-color: #607d8b; /* 深一点的蓝灰色 */
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(120, 144, 156, 0.5);
+}
+
+.home-button-np {
+  background-color: #ffb74d; /* 橙色 */
+  color: #424242; /* 深灰色文字 */
+  animation-delay: 1.5s; /* 按钮动画延迟 */
+  box-shadow: 0 4px 15px rgba(255, 183, 77, 0.4);
+}
+
+.home-button-np:hover {
+  background-color: #ffa726; /* 深一点的橙色 */
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 183, 77, 0.6);
+}
+
+@keyframes popInButtonNP {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .error-code-container-np {
+    font-size: 7rem;
+    margin-bottom: 25px;
+  }
+  .lock-icon-np {
+    width: 40px;
+    height: 52px;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  .lock-shackle-np {
+    width: 22px;
+    height: 22px;
+    border-width: 6px;
+    border-radius: 11px 11px 0 0;
+  }
+  .lock-body-np {
+    height: 32px;
+  }
+
+  .error-message-np {
+    font-size: 1.5rem;
+  }
+  .error-description-np {
+    font-size: 0.9rem;
+  }
+  .action-button-np {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .no-permission-content {
+    padding: 25px;
+  }
+  .error-code-container-np {
+    font-size: 5.5rem;
+  }
+  .lock-icon-np {
+    width: 35px;
+    height: 45px;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  .lock-shackle-np {
+    width: 18px;
+    height: 18px;
+    border-width: 5px;
+    border-radius: 9px 9px 0 0;
+  }
+  .lock-body-np {
+    height: 28px;
+    border-radius: 4px;
+  }
+
+  .buttons-container-np {
+    flex-direction: column; /* 垂直堆叠按钮 */
+    align-items: center;
+  }
+  .action-button-np {
+    width: 80%; /* 使按钮在堆叠时更宽 */
+    margin-bottom: 10px;
+  }
+  .buttons-container-np .action-button-np:last-child {
+    margin-bottom: 0;
+  }
+}
