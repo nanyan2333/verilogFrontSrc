@@ -8,7 +8,10 @@ import Course from "../view/course"
 import Experiment from "../view/experiment"
 
 import Home from "../view/home"
+import StudentHome from "../view/student"
 import About from "../view/about"
+import CourseList from "../view/student/CourseList";
+import HistoryCourse from "../view/student/CourseList/HistoryCourse.jsx";
 
 const routes = [
 	{
@@ -32,10 +35,34 @@ const routes = [
 				),
 			},
 			{
+				path: "student-home",
+				element: (
+					<RequireAuth role='2'>
+						<StudentHome />
+					</RequireAuth>
+				),
+			},
+			{
+				path: "course-list",
+				element: (
+					<RequireAuth role='2'>
+						<CourseList/>
+					</RequireAuth>
+				),
+			},
+			{
 				path: "course/:id",
 				element: (
 					<RequireAuth role='2'>
 						<Course />
+					</RequireAuth>
+				),
+			},
+			{
+				path: "history",
+				element: (
+					<RequireAuth role='2'>
+						<HistoryCourse />
 					</RequireAuth>
 				),
 			},
