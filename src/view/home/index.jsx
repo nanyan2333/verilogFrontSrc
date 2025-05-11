@@ -1,7 +1,7 @@
 import CourseCard from "../../components/CourseCard"
 import coursePng from "../../assets/img/CarbonCourse.png"
 import { useEffect, useState, useMemo } from "react"
-import CourseFormDialog from "../../components/FormDialog"
+import FormDialog from "../../components/FormDialog"
 import { TextField } from "@mui/material"
 import {  useNavigate } from "react-router-dom"
 export default function TeacherHome() {
@@ -63,7 +63,7 @@ export default function TeacherHome() {
 					value={search}
 					onChange={(e) => setSearch(e.target.value)}
 				/>
-				<CourseFormDialog
+				<FormDialog
 					title={"创建课程"}
 					description={"创建课程"}
 					option={formDialogOption}

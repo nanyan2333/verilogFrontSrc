@@ -20,7 +20,7 @@ import { Key } from "@mui/icons-material"
 // 	option={formDialogOption}
 // 	callback={formCallBack}
 // />
-export default function CourseFormDialog({
+export default function FormDialog({
 	title,
 	description,
 	option,

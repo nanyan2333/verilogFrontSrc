@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams,useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import {
 	Typography,
@@ -10,17 +10,19 @@ import {
 } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import DownloadIcon from "@mui/icons-material/Download"
-import CourseFormDialog from "../../components/FormDialog"
+import FormDialog from "../../components/FormDialog"
+import { downloadFile } from "../../utils/download"
 
 export default function Course() {
 	const { id } = useParams()
+	const navigate = useNavigate()
 	const [course, setCourse] = useState(null)
 	const experimentFormOptions = [
 		{ id: "title", name: "title", label: "实验名", type: "text" },
 		{ id: "description", name: "description", label: "实验描述", type: "text" },
 		{ id: "startTime", name: "startTime", label: "开始时间", type: "date" },
 		{ id: "endTime", name: "endTime", label: "结束时间", type: "date" },
-		{ id: "attachment", label: "上传附件", type: "file", name:"attachment" }, // 新增字段
+		{ id: "attachment", label: "上传附件", type: "file", name: "attachment" }, // 新增字段
 	]
 	const getDetail = async (id) => {
 		// 模拟获取数据
@@ -32,6 +34,7 @@ export default function Course() {
 			description: "从零开始掌握数据结构与算法核心概念。",
 			experiments: [
 				{
+					id:1,
 					title: "冒泡排序实验",
 					description: "实现并优化冒泡排序",
 					file: {
@@ -40,6 +43,7 @@ export default function Course() {
 					},
 				},
 				{
+					id:2,
 					title: "快速排序实验",
 					description: "递归实现快速排序",
 					file: {
@@ -54,18 +58,7 @@ export default function Course() {
 		event.preventDefault()
 	}
 
-	const downloadFile = async (fileId, filename) => {
-		const response = await fetch(`/api/file/${fileId}`, { method: "GET" })
-		const blob = await response.blob()
-		const url = window.URL.createObjectURL(blob)
-		const a = document.createElement("a")
-		a.href = url
-		a.download = filename
-		document.body.appendChild(a)
-		a.click()
-		a.remove()
-		window.URL.revokeObjectURL(url)
-	}
+	
 
 	useEffect(() => {
 		getDetail(id)
@@ -82,7 +75,7 @@ export default function Course() {
 				{course.description}
 			</Typography>
 			<div>
-				<CourseFormDialog
+				<FormDialog
 					title={"新建实验"}
 					description={""}
 					option={experimentFormOptions}
@@ -110,6 +103,11 @@ export default function Course() {
 								下载实验文件
 							</Button>
 						)}
+						<Button
+							variant='outlined'
+							onClick={() => navigate(`/experiment/${exp.id}`)}>
+							完成实验
+						</Button>
 					</AccordionDetails>
 				</Accordion>
 			))}

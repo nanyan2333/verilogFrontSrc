@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // 假设你使用了 React Router
+import { Link } from 'react-router-dom'; 
 import '../assets/style/NotFound.css';
 
 const NotFound = () => {
@@ -20,9 +20,9 @@ const NotFound = () => {
           您要查找的页面似乎不存在。
           也许它被移动了，或者您输入的网址有些小错误。
         </p>
-        {/* <Link to="/" className="home-button">
+        <Link to="/" className="home-button">
           返回首页
-        </Link> */}
+        </Link>
       </div>
     </div>
   );
