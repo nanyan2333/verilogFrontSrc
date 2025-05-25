@@ -6,7 +6,9 @@ import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogContentText from "@mui/material/DialogContentText"
 import DialogTitle from "@mui/material/DialogTitle"
-import { Key } from "@mui/icons-material"
+import Input from "@mui/material/Input"
+import FormControl from "@mui/material/FormControl"
+import InputLabel from "@mui/material/InputLabel"
 
 // const formDialogOption = [
 // 	{ id: "title", name: "title", label: "课程名", type: "text" },
@@ -20,12 +22,17 @@ import { Key } from "@mui/icons-material"
 // 	option={formDialogOption}
 // 	callback={formCallBack}
 // />
-export default function FormDialog({
-	title,
-	description,
-	option,
-	callback,
-}) {
+/**
+ * 导出一个默认的FormDialog函数组件
+ * 该组件用于创建一个带有表单的对话框，当用户点击按钮时打开，关闭时提交表单数据
+ *
+ * @param {Object} props - 组件的props对象
+ * @param {string} props.title - 对话框的标题，显示在按钮和对话框标题区域
+ * @param {string} props.description - 对话框内容区域的描述性文本
+ * @param {Array} props.option - 表单选项的数组，每个选项代表一个输入字段
+ * @param {Function} props.callback - 表单提交时的回调函数，用于处理表单数据
+ */
+export default function FormDialog({ title, description, option, callback }) {
 	const [open, setOpen] = React.useState(false)
 
 	const handleClickOpen = () => {
@@ -48,7 +55,10 @@ export default function FormDialog({
 					paper: {
 						component: "form",
 						onSubmit: (event) => {
-							callback(event)
+							event.preventDefault()
+							const form = event.currentTarget
+							const formData = new FormData(form)
+							callback(formData)
 							handleClose()
 						},
 					},
@@ -57,27 +67,43 @@ export default function FormDialog({
 				<DialogContent>
 					<DialogContentText>{description}</DialogContentText>
 					{option &&
-						option.map((item, index) => (
-							<TextField
-								key={index}
-								autoFocus
-								required
-								margin='dense'
-								id={item.id}
-								name={item.name}
-								label={item.label}
-								type={item.type}
-								fullWidth
-								variant='standard'
-								slotProps={{
-									input: item.type === "file" ? { accept: "*/*" } : {},
-									inputLabel:
-										item.type === "date" || item.type === "file"
-											? { shrink: true }
-											: {},
-								}}
-							/>
-						))}
+						option.map((item, index) =>
+							item.type === "file" ? (
+								<FormControl
+									key={index}
+									margin='dense'
+									fullWidth
+									required
+									variant='standard'>
+									<InputLabel htmlFor={item.id} shrink>
+										{item.label}
+									</InputLabel>
+									<Input
+										id={item.id}
+										name={item.name}
+										type='file'
+										inputProps={{ multiple: true }}
+									/>
+								</FormControl>
+							) : (
+								<TextField
+									key={index}
+									autoFocus
+									required
+									margin='dense'
+									id={item.id}
+									name={item.name}
+									label={item.label}
+									type={item.type}
+									fullWidth
+									variant='standard'
+									slotProps={{
+										inputLabel:
+											item.type === "date" ? { shrink: true } : undefined,
+									}}
+								/>
+							)
+						)}
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose}>取消</Button>

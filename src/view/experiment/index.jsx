@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import EditorIDE from "../../components/EditorIDE"
 import { useParams } from "react-router-dom"
 import { Box, Typography, Divider, Paper } from "@mui/material"
-import { downloadFile } from "../../utils/download"
+import { downloadFile } from "../../utils/file"
 export default function Experiment() {
 	const { id } = useParams()
 

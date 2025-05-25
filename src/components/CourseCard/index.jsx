@@ -7,7 +7,14 @@ import {
 	Button,
 	Box,
 } from "@mui/material"
-
+/**
+ * 课程卡片组件
+ * 
+ * 该组件用于显示课程的相关信息，如课程标题、简介、讲师等，并可根据配置显示课程图片和按钮
+ * 
+ * @param {Object} data - 包含课程信息的数据对象
+ * @param {Object} option - 配置选项对象，用于控制卡片的显示行为
+ */
 export default function CourseCard({ data, option }) {
 	const {
 		id = "",

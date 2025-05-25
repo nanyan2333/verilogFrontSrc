@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { loginApi, getRouteApi } from "../api/auth"
+import { login } from "../api/auth"
 import { setIsLogin, setRole } from "../store/modules/userSlice"
 import { Button, TextField } from "@mui/material"
 
@@ -12,15 +12,17 @@ const Login = () => {
 	const [password, setPassword] = useState("")
 
 	const handleLogin = () => {
-		// const res = await loginApi("admin", "123456")
-		// if (res.token) {
-		// 	console.log(111)
-		// 	dispatch(setRole(2))
-		// 	navigate("/home")
-		// }
-		dispatch(setRole(2))
-		dispatch(setIsLogin(true))
-		navigate("/home")
+		const res = login({username:"admin", password:"123456"}).then(res =>{
+			if (res.token) {
+				console.log(111)
+				dispatch(setRole(2))
+				navigate("/home")
+			}
+			dispatch(setRole(2))
+			dispatch(setIsLogin(true))
+			navigate("/")
+		})
+		
 	}
 	return (
 		<div className='min-h-screen bg-gray-100 flex items-center justify-center'>

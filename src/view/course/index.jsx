@@ -1,4 +1,4 @@
-import { useParams,useNavigate } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import {
 	Typography,
@@ -11,7 +11,8 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import DownloadIcon from "@mui/icons-material/Download"
 import FormDialog from "../../components/FormDialog"
-import { downloadFile } from "../../utils/download"
+import { createCourseExperiment } from "../../api/course/index"
+import { downloadFile } from "../../utils/file"
 
 export default function Course() {
 	const { id } = useParams()
@@ -22,7 +23,7 @@ export default function Course() {
 		{ id: "description", name: "description", label: "实验描述", type: "text" },
 		{ id: "startTime", name: "startTime", label: "开始时间", type: "date" },
 		{ id: "endTime", name: "endTime", label: "结束时间", type: "date" },
-		{ id: "attachment", label: "上传附件", type: "file", name: "attachment" }, // 新增字段
+		{ id: "attachment", label: "上传附件", type: "file", name: "files" }, // 新增字段
 	]
 	const getDetail = async (id) => {
 		// 模拟获取数据
@@ -34,7 +35,7 @@ export default function Course() {
 			description: "从零开始掌握数据结构与算法核心概念。",
 			experiments: [
 				{
-					id:1,
+					id: 1,
 					title: "冒泡排序实验",
 					description: "实现并优化冒泡排序",
 					file: {
@@ -43,7 +44,7 @@ export default function Course() {
 					},
 				},
 				{
-					id:2,
+					id: 2,
 					title: "快速排序实验",
 					description: "递归实现快速排序",
 					file: {
@@ -54,11 +55,11 @@ export default function Course() {
 			],
 		})
 	}
-	const callback = (event) => {
-		event.preventDefault()
+	const callback = (data) => {
+		createCourseExperiment(data).then((res) => {
+			
+		})
 	}
-
-	
 
 	useEffect(() => {
 		getDetail(id)
