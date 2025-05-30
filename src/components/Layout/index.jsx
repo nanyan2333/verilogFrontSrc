@@ -8,7 +8,7 @@ const Main = () => {
 			<div>
 				<TopNav></TopNav>
 			</div>
-			<div className="p-4">
+			<div className="p-4 w-full h-full overflow-auto">
 				<Outlet />
 			</div>
 		</div>

@@ -15,6 +15,10 @@ export function createCourse(data) {
     return api.post('/course', data);
 }
 
+export function getCourseDetail(id) {
+    return api.get(`/course/${id}`);
+}
+
 
 /**
  * 
@@ -67,7 +71,7 @@ export function auditStudent(id, status) {
  */
 export function createCourseExperiment(data) {
     return api.post('/course/experiment', data, {
-        headers:{
+        headers: {
             'Content-Type': 'multipart/form-data'
         }
     })

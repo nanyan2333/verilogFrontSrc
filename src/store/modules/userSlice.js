@@ -1,31 +1,30 @@
-import { Logout } from "@mui/icons-material";
 import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
     name: "user",
     initialState: {
+        id: null,
         role: null,
-        token: "",
         isLogin: false,
     },
     reducers: {
         setRole: (state, action) => {
             state.role = action.payload;
         },
-        setToken: (state, action) => {
-            state.token = action.payload;
+        setUserId: (state, action) => {
+            state.id = action.payload;
         },
         setIsLogin: (state, action) => {
             state.isLogin = action.payload;
         },
-        // Logout: (state, action) => {
-        //     state.role = null;
-        //     state.token = "";
-        //     state.isLogin = false;
-        // }
+        logoutResetInfo: (state, action) => {
+            state.role = null;
+            state.id = null
+            state.isLogin = false;
+        }
     }
 })
 
-export const { setRole, setToken, setIsLogin } = userSlice.actions
+export const { setRole, setUserId, setIsLogin, logoutResetInfo } = userSlice.actions
 
 export default userSlice.reducer

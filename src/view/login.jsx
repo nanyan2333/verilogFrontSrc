@@ -2,27 +2,30 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { login } from "../api/auth"
-import { setIsLogin, setRole } from "../store/modules/userSlice"
+import { setIsLogin, setRole,setUserId } from "../store/modules/userSlice"
 import { Button, TextField } from "@mui/material"
+import { setToken } from "../utils/cookie"
+import { useNotification } from "../components/NotificationProvider"
 
 const Login = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const [id, setId] = useState("")
 	const [password, setPassword] = useState("")
-
+	const notify  = useNotification()
 	const handleLogin = () => {
-		const res = login({username:"admin", password:"123456"}).then(res =>{
-			if (res.token) {
-				console.log(111)
-				dispatch(setRole(2))
-				navigate("/home")
+		login({ id, password }).then((res) => {
+			if (res.data.token && res.data.token !== "") {
+				dispatch(setUserId(id))
+				dispatch(setRole(res.data.role))
+				dispatch(setIsLogin(true))
+				setToken(res.data.token)
+				notify("登录成功","success")
+				navigate("/")
+			} else {
+				notify("登录失败","error")
 			}
-			dispatch(setRole(2))
-			dispatch(setIsLogin(true))
-			navigate("/")
 		})
-		
 	}
 	return (
 		<div className='min-h-screen bg-gray-100 flex items-center justify-center'>

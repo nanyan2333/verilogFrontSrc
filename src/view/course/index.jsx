@@ -11,12 +11,14 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import DownloadIcon from "@mui/icons-material/Download"
 import FormDialog from "../../components/FormDialog"
-import { createCourseExperiment } from "../../api/course/index"
+import { createCourseExperiment,getCourseList } from "../../api/course/index"
 import { downloadFile } from "../../utils/file"
+import { useNotification } from "../../components/NotificationProvider"
 
 export default function Course() {
 	const { id } = useParams()
 	const navigate = useNavigate()
+	const notify = useNotification()
 	const [course, setCourse] = useState(null)
 	const experimentFormOptions = [
 		{ id: "title", name: "title", label: "实验名", type: "text" },
@@ -26,38 +28,14 @@ export default function Course() {
 		{ id: "attachment", label: "上传附件", type: "file", name: "files" }, // 新增字段
 	]
 	const getDetail = async (id) => {
-		// 模拟获取数据
-		// const response = await fetch(`/api/course/${id}`)
-		// const data = await response.json()
-		setCourse({
-			id: "1",
-			title: "深入浅出算法",
-			description: "从零开始掌握数据结构与算法核心概念。",
-			experiments: [
-				{
-					id: 1,
-					title: "冒泡排序实验",
-					description: "实现并优化冒泡排序",
-					file: {
-						id: "exp001file",
-						name: "bubble-sort.pdf",
-					},
-				},
-				{
-					id: 2,
-					title: "快速排序实验",
-					description: "递归实现快速排序",
-					file: {
-						id: "exp002file",
-						name: "quick-sort.zip",
-					},
-				},
-			],
-		})
+		const res = await getCourseList(id)
+		setCourse(res.data)
 	}
 	const callback = (data) => {
 		createCourseExperiment(data).then((res) => {
-			
+			notify("创建成功",'success')
+		}).catch((error) => {
+			notify(error.message,'error')
 		})
 	}
 

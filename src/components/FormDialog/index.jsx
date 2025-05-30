@@ -1,14 +1,21 @@
-import * as React from "react"
-import Button from "@mui/material/Button"
-import TextField from "@mui/material/TextField"
-import Dialog from "@mui/material/Dialog"
-import DialogActions from "@mui/material/DialogActions"
-import DialogContent from "@mui/material/DialogContent"
-import DialogContentText from "@mui/material/DialogContentText"
-import DialogTitle from "@mui/material/DialogTitle"
-import Input from "@mui/material/Input"
-import FormControl from "@mui/material/FormControl"
-import InputLabel from "@mui/material/InputLabel"
+import { Fragment, useState } from "react"
+import {
+	Button,
+	TextField,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	Input,
+	FormControl,
+	InputLabel,
+	AppBar,
+	Toolbar,
+	IconButton,
+	Typography,
+} from "@mui/material"
+import CloseIcon from "@mui/icons-material/Close"
 
 // const formDialogOption = [
 // 	{ id: "title", name: "title", label: "课程名", type: "text" },
@@ -32,8 +39,14 @@ import InputLabel from "@mui/material/InputLabel"
  * @param {Array} props.option - 表单选项的数组，每个选项代表一个输入字段
  * @param {Function} props.callback - 表单提交时的回调函数，用于处理表单数据
  */
-export default function FormDialog({ title, description, option, callback }) {
-	const [open, setOpen] = React.useState(false)
+export default function FormDialog({
+	title,
+	description = "",
+	option,
+	callback,
+	fullScreen = false,
+}) {
+	const [open, setOpen] = useState(false)
 
 	const handleClickOpen = () => {
 		setOpen(true)
@@ -44,11 +57,12 @@ export default function FormDialog({ title, description, option, callback }) {
 	}
 
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Button variant='outlined' onClick={handleClickOpen}>
 				{title}
 			</Button>
 			<Dialog
+				fullScreen={fullScreen}
 				open={open}
 				onClose={handleClose}
 				slotProps={{
@@ -63,7 +77,26 @@ export default function FormDialog({ title, description, option, callback }) {
 						},
 					},
 				}}>
-				<DialogTitle>{title}</DialogTitle>
+				{fullScreen && (
+					<AppBar sx={{ position: "relative" }}>
+						<Toolbar>
+							<IconButton
+								edge='start'
+								color='inherit'
+								onClick={handleClose}
+								aria-label='close'>
+								<CloseIcon />
+							</IconButton>
+							<Typography sx={{ ml: 2, flex: 1 }} variant='h6' component='div'>
+								{title}
+							</Typography>
+							{/* <Button autoFocus color='inherit' onClick={handleClose}>
+								save
+							</Button> */}
+						</Toolbar>
+					</AppBar>
+				)}
+				{!fullScreen && <DialogTitle>{title}</DialogTitle>}
 				<DialogContent>
 					<DialogContentText>{description}</DialogContentText>
 					{option &&
@@ -110,6 +143,6 @@ export default function FormDialog({ title, description, option, callback }) {
 					<Button type='submit'>提交</Button>
 				</DialogActions>
 			</Dialog>
-		</React.Fragment>
+		</Fragment>
 	)
 }
